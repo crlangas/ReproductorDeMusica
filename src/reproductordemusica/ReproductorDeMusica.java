@@ -5,6 +5,7 @@ import java.util.Scanner;
 import static reproductordemusica.añadirCanciones.añadirCanciones;
 import static reproductordemusica.borrarCanciones.borrarCanciones;
 import static reproductordemusica.monstrarCanciones.monstrarCanciones;
+import static reproductordemusica.reproducirCanciones.reproducirCancion;
 
 /**
  * Vamos a terminar estos ejercicios con un poco de música. Se ha programar un
@@ -47,7 +48,7 @@ public class ReproductorDeMusica {
         while (seguir) { //bucle para que el programa no deje de ejecutarse
             switch (decicison.toLowerCase()) { //swhich en funcion
                 case "play"://decision a ajecutar
-                    System.out.println("not avitable");
+                    reproducirCancion(canciones);
                     break;
                 case "stop":
                     System.out.println("not avitable");
@@ -78,5 +79,6 @@ public class ReproductorDeMusica {
         }
 
     }
+
 
 }
