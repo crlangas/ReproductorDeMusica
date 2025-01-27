@@ -1,5 +1,6 @@
 package reproductordemusica;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -32,47 +33,48 @@ public class ReproductorDeMusica {
     static String canciones[][] = new String[10][3]; // pongo esto como static para poder usarlo en las funciones mejor.
     static Scanner reader = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Variables
         String decicison = "";
         boolean seguir = true;
 
-        //try { //try catch para la gestion de errores
-        System.out.println("Escribe lo que quieres hacer, \"play\" para reproducir, \"stop\" para dejar de reproducir, \n \"show\" para monstar las canciones disponibles,\n \"add\" para añadir una cancion nueva y \n \"delete\" para borrar una existente");
-        decicison = reader.next();
-        while (seguir) { //bucle para que el programa no deje de ejecutarse
-            switch (decicison.toLowerCase()) { //swhich en funcion
-                case "play"://decision a ajecutar
-                    System.out.println("not avitable");
-                    break;
-                case "stop":
-                    System.out.println("not avitable");
-                    break;
-                case "show":
-                    monstrarCanciones(canciones);
-                    break;
-                case "add":
-                    canciones = añadirCanciones(canciones);
+        try { //try catch para la gestion de errores
+            System.out.println("Escribe lo que quieres hacer, \"play\" para reproducir, \"stop\" para dejar de reproducir, \n \"show\" para monstar las canciones disponibles,\n \"add\" para añadir una cancion nueva y \n \"delete\" para borrar una existente");
+            decicison = reader.next();
+            while (seguir) { //bucle para que el programa no deje de ejecutarse
+                switch (decicison.toLowerCase()) { //swhich en funcion
+                    case "play"://decision a ajecutar
+                        reproducirCancion(canciones);
+                        break;
+                    case "stop":
+                        System.out.println("not avitable");
+                        break;
+                    case "show":
+                        monstrarCanciones(canciones);
+                        break;
+                    case "add":
+                        canciones = añadirCanciones(canciones);
 
+                        break;
+                    case "delete":
+                        canciones = borrarCanciones(canciones);
+                        break;
+                    default: //por si el usuario se equivoca
+                        System.out.println("la entrada: " + decicison + " no es valida porfavor introduce un valor valido.");
+                }
+                System.out.println("Para Salir puedes poner \"salir\" sino quieres salir pon lo que sea y te preguntare que quieres hacer otra vez");
+                decicison = reader.next();//va recogiendo lo que pide el usuario.
+                if (decicison.toLowerCase().equals("salir")) { //funcion de exit
+                    System.out.println("Adios :)");
                     break;
-                case "delete":
-                    canciones = borrarCanciones(canciones);
-                    break;
-                default: //por si el usuario se equivoca
-                    System.out.println("la entrada: " + decicison + " no es valida porfavor introduce un valor valido.");
+                }
             }
-            System.out.println("Para Salir puedes poner \"salir\" sino quieres salir pon lo que sea y te preguntare que quieres hacer otra vez");
-            decicison = reader.next();//va recogiendo lo que pide el usuario.
-            if (decicison.toLowerCase().equals("salir")) { //funcion de exit
-                System.out.println("Adios :)");
-                break;
-            }
+        } catch (java.io.IOException e) {
+            System.out.println("Error al reproducir la cancion, recuerda tener instalado brave-browser");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("La ejecucion termino de manera abrupta por un error :_-( ");
         }
-        //} catch (Exception e) {
-        //System.out.println(e);
-        //} finally { // para que siempre salga este mensaje si hay un error y el usuario este tranquilo y sepa que el programa termino.
-        //    System.out.println("La ejecucion termino de manera abrupta por un error :_-( ");
-        //}
 
     }
 
@@ -164,14 +166,14 @@ public class ReproductorDeMusica {
         System.out.println("cual es la posicion de la cancion que quieres borrar");
         while (true) { //pide la posicion de la cancion a borrar hasta que sea valida
             posCancion = reader.nextInt();
-            if (posCancion < 0 && posCancion > 10) {
-                System.out.println("Posicion seleccionada invalida porfavor pon una del 1-10 ");  
-            } else{
+            if (posCancion < 0 || posCancion > 10) {
+                System.out.println("Posicion seleccionada invalida porfavor pon una del 1-10 ");
+            } else {
                 break;
             }
         }
         posCancion--;
-        
+
         for (int i = 0; i < canciones[posCancion].length; i++) { //resetea los valores de la cancion y la borra asi
             canciones[posCancion][i] = null;
         }
@@ -187,6 +189,32 @@ public class ReproductorDeMusica {
         }
         System.out.println("La cancion de la posicion: " + posCancion + " se borro correctamente");
         return canciones;
+    }
+
+    //funcion para reproducir las canciones
+    private static void reproducirCancion(String[][] canciones) throws IOException {
+        int posCancion = 0;
+        String URL = "";
+        System.out.println("cual es la posicion de la cancion que quieres reproducir");
+        while (true) { //pide la posicion de la cancion a reproducir y compreueba que sea valida
+            posCancion = reader.nextInt();
+            posCancion--;
+            if (canciones[posCancion][2] == null) { //porsi en esa posicion no hay cancion
+                System.out.println("El la posicion " + posCancion + " no se encuentra nada pordfavor añade una cancion si lo deseas");
+                break;
+            }
+            if (posCancion < 0 || posCancion > 10) {
+                System.out.println("Posicion seleccionada invalida porfavor pon una del 1-10 ");
+            } else {
+                URL = canciones[posCancion][2];
+                //ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe", URL); 
+                //pb.start(); 
+                ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "start", URL); // usa esta llamada al cmd para abrir el navegador por defecto.
+                pb.start();
+                break;
+            }
+        }
+
     }
 
 }
