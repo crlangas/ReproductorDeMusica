@@ -9,9 +9,6 @@ import static reproductordemusica.borrarCanciones.borrarCanciones;
  */
 public class añadirCanciones {
 
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
         //inicializo esta funcion para que devuelva la matriz canciones con la nueva cancion
     public static String[][] añadirCanciones(String[][] canciones) {
         int posCancion;
