@@ -1,0 +1,30 @@
+# Reproductor de Música 🎵
+
+Este es un proyecto básico de un reproductor de música en consola. Permite gestionar una lista de canciones y reproducirlas en un navegador web mediante su URL. Además, incluye funcionalidades para añadir, eliminar y guardar canciones en un archivo.
+
+## Características 🚀
+
+- **Reproducir Canción:** Selecciona y reproduce una canción desde la lista en tu navegador.
+- **Mostrar Canciones:** Lista todas las canciones disponibles en formato tabular.
+- **Agregar Canción:** Añade una nueva canción ingresando su título, autor y URL.
+- **Eliminar Canción:** Elimina una canción seleccionada de la lista.
+- **Guardar Lista:** Guarda la lista actual de canciones en un archivo `USER_PLAYLIST.csv`.
+- **Carga de Lista:** (extensión futura) Leer canciones desde un archivo.
+
+## Requisitos 🛠️
+
+- **Java Development Kit (JDK):** Versión 8 o superior.
+- **Navegador Web:** Brave (configurable, según tu navegador instalado).
+
+## Instalación ⚙️
+0. Obiamente tener java instalado
+	  	
+	
+1. Clona este repositorio:
+   
+   git clone https://github.com/crlanagas/ReproductorDeMusica.git
+   cd ReproductorDeMusica
+
+2. Ejecuta el class principal ""
+
+   java .\src\reproductordemusica\ReproductorDeMusica.java
