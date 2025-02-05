@@ -9,12 +9,12 @@ Este es un proyecto básico de un reproductor de música en consola. Permite ges
 - **Agregar Canción:** Añade una nueva canción ingresando su título, autor y URL.
 - **Eliminar Canción:** Elimina una canción seleccionada de la lista.
 - **Guardar Lista:** Guarda la lista actual de canciones en un archivo `USER_PLAYLIST.csv`.
-- **Carga de Lista:** (extensión futura) Leer canciones desde un archivo.
+- **Carga de Lista:** Leer canciones desde un archivo que ha guardado el usuario.
 
 ## Requisitos 🛠️
 
 - **Java Development Kit (JDK):** Versión 8 o superior.
-- **Navegador Web:** Brave (configurable, según tu navegador instalado).
+- **Navegador Web:**  (Usara tu navegador predeterminado).
 
 ## Instalación ⚙️
 0. Obiamente tener java instalado
@@ -25,6 +25,6 @@ Este es un proyecto básico de un reproductor de música en consola. Permite ges
    git clone https://github.com/crlanagas/ReproductorDeMusica.git
    cd ReproductorDeMusica
 
-2. Ejecuta el class principal ""
+2. Ejecuta el class principal en una terminal Windows""
 
    java .\src\reproductordemusica\ReproductorDeMusica.java
