@@ -1,5 +1,9 @@
 package reproductordemusica;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -39,22 +43,25 @@ public class ReproductorDeMusica {
         boolean seguir = true;
 
         try { //try catch para la gestion de errores
-            System.out.println("Escribe lo que quieres hacer, \"play\" para reproducir, \"stop\" para dejar de reproducir, \n \"show\" para monstar las canciones disponibles,\n \"add\" para añadir una cancion nueva y \n \"delete\" para borrar una existente");
+            System.out.println("Escribe lo que quieres hacer, \"play\" para reproducir, \n \"show\" para monstar las canciones disponibles,\n \"add\" para añadir una cancion nueva y \n \"delete\" para borrar una existente");
+            System.out.println("Para guardar la playlist escribe \"save\" y para cargar la playlist guardada pon \"load\".");
             decicison = reader.next();
             while (seguir) { //bucle para que el programa no deje de ejecutarse
                 switch (decicison.toLowerCase()) { //swhich en funcion
                     case "play"://decision a ajecutar
                         reproducirCancion(canciones);
                         break;
-                    case "stop":
-                        System.out.println("not avitable");
-                        break;
                     case "show":
                         monstrarCanciones(canciones);
                         break;
                     case "add":
                         canciones = añadirCanciones(canciones);
-
+                        break;
+                    case "save":
+                        guardarCanciones(canciones);
+                        break;
+                    case "load":
+                        canciones = cargarCanciones();
                         break;
                     case "delete":
                         canciones = borrarCanciones(canciones);
@@ -214,7 +221,44 @@ public class ReproductorDeMusica {
                 break;
             }
         }
+    }
 
+    //funcion para guardar las canciones
+    private static void guardarCanciones(String[][] canciones) {
+
+        try {
+            FileWriter escritorDeFichero = new FileWriter("USER_PLAYLIST.csv");
+            for (int i = 0; i < canciones.length; i++) { //recorre canciones y guarda cada valor seprador por un ;
+                escritorDeFichero.write((canciones[i][0] == null ? "  -------------  ;" : canciones[i][0]) + ";" + (canciones[i][1] == null ? "  -------------  ;" : canciones[i][1]) + ";" + canciones[i][2] + "\n");
+            }
+            escritorDeFichero.close();
+            System.out.println("Fichero playlist guardada con exito");
+        } catch (IOException error) { //con este try catch el programa sigue su curso y no para pero salta el error si no se guarda bien
+            System.out.println("Error al guardar la playlist.");
+        }
+    }
+
+    private static String[][] cargarCanciones() {
+        String[][] cancionesDelArchivo = new String[10][3];
+        try {
+            File playlist = new File("USER_PLAYLIST.csv");
+            Scanner scanner = new Scanner(playlist);
+
+            //recorre la lineas del archivo y la guarda en cancionesDelArchivo
+            for (int i = 0; i < 10; i++) {
+                cancionesDelArchivo[i] = scanner.nextLine().split(";");
+            }
+
+            // retorna el array lleno con las canciones guardadas en otra sesión
+            
+            return cancionesDelArchivo;
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("Error archivo de guardado no encontrado");
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return cancionesDelArchivo;
     }
 
 }
