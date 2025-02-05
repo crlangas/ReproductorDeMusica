@@ -4,6 +4,8 @@ import java.util.Scanner;
 //importo las clases para usar sus funciones y asi tenerlo mas estructurado.
 import static reproductordemusica.añadirCanciones.añadirCanciones;
 import static reproductordemusica.borrarCanciones.borrarCanciones;
+import static reproductordemusica.cargarCanciones.cargarCanciones;
+import static reproductordemusica.guardarCanciones.guardarCanciones;
 import static reproductordemusica.monstrarCanciones.monstrarCanciones;
 import static reproductordemusica.reproducirCanciones.reproducirCancion;
 
@@ -43,42 +45,47 @@ public class ReproductorDeMusica {
         boolean seguir = true;
 
         try { //try catch para la gestion de errores
-        System.out.println("Escribe lo que quieres hacer, \"play\" para reproducir, \"stop\" para dejar de reproducir, \n \"show\" para monstar las canciones disponibles,\n \"add\" para añadir una cancion nueva y \n \"delete\" para borrar una existente");
-        decicison = reader.next();
-        while (seguir) { //bucle para que el programa no deje de ejecutarse
-            switch (decicison.toLowerCase()) { //swhich en funcion
-                case "play"://decision a ajecutar
-                    reproducirCancion(canciones);
+            System.out.println("Escribe lo que quieres hacer, \"play\" para reproducir, \"stop\" para dejar de reproducir, \n \"show\" para monstar las canciones disponibles,\n \"add\" para añadir una cancion nueva y \n \"delete\" para borrar una existente");
+            decicison = reader.next();
+            while (seguir) { //bucle para que el programa no deje de ejecutarse
+                switch (decicison.toLowerCase()) { //swhich en funcion
+                    case "play"://decision a ajecutar
+                        reproducirCancion(canciones);
+                        break;
+                    case "stop":
+                        System.out.println("not avitable");
+                        break;
+                    case "show":
+                        monstrarCanciones(canciones);
+                        break;
+                    case "add":
+                        canciones = añadirCanciones(canciones);
+                        break;
+                    case "save":
+                        guardarCanciones(canciones);
+                        break;
+                    case "load":
+                        canciones = cargarCanciones();
+                        
+                        break;
+                    case "delete":
+                        canciones = borrarCanciones(canciones);
+                        break;
+                    default: //por si el usuario se equivoca
+                        System.out.println("la entrada: " + decicison + " no es valida porfavor introduce un valor valido.");
+                }
+                System.out.println("Para Salir puedes poner \"salir\" sino quieres salir pon lo que sea y te preguntare que quieres hacer otra vez");
+                decicison = reader.next();//va recogiendo lo que pide el usuario.
+                if (decicison.toLowerCase().equals("salir")) { //funcion de exit
+                    System.out.println("Adios :)");
                     break;
-                case "stop":
-                    System.out.println("not avitable");
-                    break;
-                case "show":
-                    monstrarCanciones(canciones);
-                    break;
-                case "add":
-                    canciones = añadirCanciones(canciones);
-
-                    break;
-                case "delete":
-                    canciones = borrarCanciones(canciones);
-                    break;
-                default: //por si el usuario se equivoca
-                    System.out.println("la entrada: " + decicison + " no es valida porfavor introduce un valor valido.");
+                }
             }
-            System.out.println("Para Salir puedes poner \"salir\" sino quieres salir pon lo que sea y te preguntare que quieres hacer otra vez");
-            decicison = reader.next();//va recogiendo lo que pide el usuario.
-            if (decicison.toLowerCase().equals("salir")) { //funcion de exit
-                System.out.println("Adios :)");
-                break;
-            }
-        }
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println("La ejecucion termino de manera abrupta por un error :_-( ");  
+            System.out.println("La ejecucion termino de manera abrupta por un error :_-( ");
         }
 
     }
-
 
 }

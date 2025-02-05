@@ -16,6 +16,7 @@ public class monstrarCanciones {
             System.out.print("- " + (i + 1));
             for (int j = 0; j < canciones[0].length; j++) {
                 if (canciones[i][j] == (null)) {
+
                     if (j == 2) { //solo ajusta el tamaño de la barra al espacio para que se vea bien en la terminal
                         System.out.print("  ---------------------------------------------------  ");
                     } else {
